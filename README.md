@@ -16,5 +16,6 @@ I'll keep this public for to long.
 
 Join my server to get a peak of its functionality!
 
-IP: SOON\n
+IP: SOON
+
 PORT: SOON
