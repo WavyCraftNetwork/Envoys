@@ -1,6 +1,6 @@
 # Envoys
 ### Warning ⚠
-Someone by the name of name of BajanVlogs literary copied my code so be careful! If he added something malicious it's not my responsibility for the damage of your device. This is the original Envoys plugin designed for WavyCraftNetwork.
+Someone by the name of name of BajanVlogs literary copied my code and uploaded to his repository without forking it so be careful! If he added something malicious it's not my responsibility for the damage of your device. This is the original Envoys plugin designed for WavyCraftNetwork.
 ### Description
 A not so simple Envoys plugin for Pocketmine-MP mostly
 designed for WavyCraftNetwork, You may use this project.
