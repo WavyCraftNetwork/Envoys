@@ -67,6 +67,5 @@ class RewardManager
         }
 
         $player->getInventory()->addItem($item);
-        $player->sendMessage(TextFormat::GOLD . "You have received a reward!");
     }
 }
