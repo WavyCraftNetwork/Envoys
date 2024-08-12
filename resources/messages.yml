@@ -1,0 +1,10 @@
+# Original WavyEnvoys config
+
+# A broadcasted message that counts down from 1 hour till envoys spawn
+envoy_spawn_warning: "An envoy will spawn in {time}!"
+
+# A broadcasted message that sends when Envoys spawn
+envoy_spawned: "Envoys have spawned!"
+
+# A message sent to the player after claiming the envoy
+envoy_claimed: "You have claimed the envoy!"
