@@ -34,7 +34,6 @@ class EnvoyManager {
         $this->dataFile = $plugin->getDataFolder() . "envoy_data.json";
         $this->loadEnvoyData();
     }
-
     public function randomlySpawnEnvoys(): void {
         $numberOfEnvoys = mt_rand($this->minEnvoy, $this->maxEnvoy);
         $maxRetries = 10;
@@ -88,7 +87,14 @@ class EnvoyManager {
         $this->activeEnvoys[$tag] = $envoy;
         $this->updateEnvoyFloatingText($position, $envoy['timeLeft'], $tag);
         $this->startLavaParticleTask($position, $tag);
-        $this->plugin->getServer()->broadcastMessage(TextFormat::GREEN . "An envoy has spawned in " . $world->getFolderName() . " at " . $position->getFloorX() . ", " . $position->getFloorY() . ", " . $position->getFloorZ() . "!");
+
+        $message = $this->plugin->getFormattedMessage("envoy_spawned", [
+            "world" => $world->getFolderName(),
+            "x" => $position->getFloorX(),
+            "y" => $position->getFloorY(),
+            "z" => $position->getFloorZ(),
+        ]);
+        $this->plugin->getServer()->broadcastMessage(TextFormat::GREEN . $message);
 
         $this->plugin->getScheduler()->scheduleRepeatingTask(new ClosureTask(function () use ($envoy): void {
             foreach ($this->activeEnvoys as $key => &$activeEnvoy) {
@@ -108,9 +114,12 @@ class EnvoyManager {
 
      private function updateEnvoyFloatingText(Position $position, int $timeLeft, string $tag): void {
         $formattedTime = $this->formatTime($timeLeft);
-    EnvoyFloatingText::create($position, "§l§bEnvoy\nTap me!\n\nDespawning in §e" . $formattedTime . "§f!", $tag);
-    }
-
+        $message = $this->plugin->getFormattedMessage("envoy_spawned_text", [
+            "time" => $formattedTime
+        ]);
+        EnvoyFloatingText::create($position, $message, $tag);
+     }
+    
     private function formatTime(int $timeLeft): string {
         $minutes = intdiv($timeLeft, 60);
         $seconds = $timeLeft % 60;
