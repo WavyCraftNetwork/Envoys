@@ -46,7 +46,6 @@ class Envoys extends PluginBase implements Listener {
     }
 
     private function scheduleEnvoySpawnTask(): void {
-        $tprivate function scheduleEnvoySpawnTask(): void {
         $totalTime = $this->interval;
         $intervals = [
             3600,
@@ -80,10 +79,10 @@ class Envoys extends PluginBase implements Listener {
                 $message = $this->getFormattedMessage("envoy_spawned");
                 $this->getServer()->broadcastMessage(TextFormat::GREEN . $message);
                 $totalTime = $this->interval;
-                }
-            }), 20);
-        }
+            }
+        }), 20);
     }
+        
     private function formatTime(int $seconds): string {
         if ($seconds >= 3600) {
             $hours = intdiv($seconds, 3600);
