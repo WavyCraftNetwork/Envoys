@@ -24,22 +24,29 @@ class Envoys extends PluginBase implements Listener {
     private int $minEnvoy = 1;
     private int $maxEnvoy = 10;
     private EnvoyManager $envoyManager;
+    private array $messages;
 
     public function onEnable(): void {
         $this->saveDefaultConfig();
         $this->saveResource("rewards.yml");
+        $this->saveResource("messages.yml");
+
         $this->interval = $this->getConfig()->get("envoy-spawn-interval");
         $this->despawnTimer = $this->getConfig()->get("despawn-timer");
         $this->minEnvoy = $this->getConfig()->get("min_envoy");
         $this->maxEnvoy = $this->getConfig()->get("max_envoy");
         $spawnLocations = $this->getConfig()->get("envoy-spawn-locations", []);
+
+        $this->messages = (new Config($this->getDataFolder() . "messages.yml", Config::YAML))->getAll();
         $this->envoyManager = new EnvoyManager($this, $spawnLocations, $this->despawnTimer, $this->minEnvoy, $this->maxEnvoy);
+
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->scheduleEnvoySpawnTask();
         RewardManager::initialize($this->getDataFolder());
     }
 
     private function scheduleEnvoySpawnTask(): void {
+        $tprivate function scheduleEnvoySpawnTask(): void {
         $totalTime = $this->interval;
         $intervals = [
             3600,
@@ -60,13 +67,18 @@ class Envoys extends PluginBase implements Listener {
 
         $this->getScheduler()->scheduleRepeatingTask(new ClosureTask(function () use (&$totalTime, $intervals): void {
             $totalTime--;
-        
+
             if (in_array($totalTime, $intervals, true)) {
-                $this->getServer()->broadcastMessage(TextFormat::GREEN . "An envoy will spawn in " . $this->formatTime($totalTime) . "!");
+                $message = $this->getFormattedMessage("envoy_spawn_warning", [
+                    "time" => $this->formatTime($totalTime)
+                ]);
+                $this->getServer()->broadcastMessage(TextFormat::GREEN . $message);
             }
 
             if ($totalTime <= 0) {
                 $this->envoyManager->randomlySpawnEnvoys();
+                $message = $this->getFormattedMessage("envoy_spawned");
+                $this->getServer()->broadcastMessage(TextFormat::GREEN . $message);
                 $totalTime = $this->interval;
             }
         }), 20);
@@ -84,6 +96,15 @@ class Envoys extends PluginBase implements Listener {
         }
     }
 
+    private function getFormattedMessage(string $key, array $replacements = []): string {
+        $message = $this->messages[$key] ?? "Message not found";
+
+        foreach ($replacements as $placeholder => $value) {
+            $message = str_replace("{" . $placeholder . "}", $value, $message);
+        }
+
+        return $message;
+    }
 
     public function onPlayerInteract(PlayerInteractEvent $event): void {
         $player = $event->getPlayer();
