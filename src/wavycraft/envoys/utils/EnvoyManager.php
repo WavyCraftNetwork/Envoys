@@ -140,19 +140,19 @@ class EnvoyManager {
         }
     }
 
-public function claimEnvoy(Player $player, World $world, Position $position): void {
-    foreach ($this->activeEnvoys as $key => $envoy) {
-        if ($envoy['world'] === $world->getFolderName() && $envoy['position']->equals($position)) {
-            $this->removeEnvoy($world, $position, $envoy['tag']);
-            unset($this->activeEnvoys[$key]);
-            break;
+    public function claimEnvoy(Player $player, World $world, Position $position): void {
+        foreach ($this->activeEnvoys as $key => $envoy) {
+            if ($envoy['world'] === $world->getFolderName() && $envoy['position']->equals($position)) {
+                $this->removeEnvoy($world, $position, $envoy['tag']);
+                unset($this->activeEnvoys[$key]);
+                break;
+            }
         }
+        $message = $this->plugin->getFormattedMessage("envoy_claimed");
+        $player->sendMessage(TextFormat::GOLD . $message);
+        EnvoyFloatingText::windParticle($position);
+        RewardManager::getInstance()->giveReward($player);
     }
-    $player->sendMessage(TextFormat::GOLD . "You have claimed the envoy at " . $position->getFloorX() . ", " . $position->getFloorY() . ", " . $position->getFloorZ() . "!");
-    EnvoyFloatingText::windParticle($position);
-    RewardManager::getInstance()->giveReward($player);
-}
-
 
     public function getActiveEnvoys(): array {
         return $this->activeEnvoys;
