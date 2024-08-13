@@ -1,6 +1,6 @@
 # WavyEnvoys
 ### Warning ⚠
-Someone by the name of name of BajanVlogs literary copied my code and uploaded to his repository without forking it, I recommend downloading the plugin through poggit or this repository. I will be pushing updates unlike the other stolen Envoy plugon. Please read through the code before downloading his and be careful! If he added something malicious it's not my responsibility for the damage of your device. This is the original Envoys plugin designed for WavyCraftNetwork. 
+Someone by the name of name of BajanVlogs literary copied my code and uploaded to his repository without forking it, I recommend downloading the plugin through poggit or this repository. I will be pushing updates unlike the other stolen Envoy plugin. Please read through the code before downloading his and be careful! If he added something malicious it's not my responsibility for the damage of your device. This is the original Envoys plugin designed for WavyCraftNetwork. 
 ### Description
 A not so simple Envoys plugin for Pocketmine-MP mostly
 designed for WavyCraftNetwork, You may use this project as it's open sourced.
@@ -24,6 +24,6 @@ This plugin was inspired by WarzoneEnvoys by Terpz710. Unlike WarzoneEnvoys thou
 
 Join my server to get a peak of its functionality!
 
-IP: SOON
+IP: wavycraft.net
 
 PORT: SOON
