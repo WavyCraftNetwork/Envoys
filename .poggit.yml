@@ -5,4 +5,5 @@ branches:
 projects:
   Envoys:
     path: ""
+    icon: icon.png
 ...
